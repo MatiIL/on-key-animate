@@ -18,28 +18,28 @@ const addImage = (left, top, container, callback) => {
   latestPic.tabIndex = 0;
   latestPic.focus();
 
-  updateImagePosition(latestPic, top, left, container);
+  // updateImagePosition(latestPic, top, left, container);
 
-  latestPic.addEventListener('keydown', function(event) {
-    switch (event.key) {
-      case 'ArrowUp':
-        latestPic.style.top = latestPic.offsetTop - 20 + 'px';
-        updateImagePosition(latestPic, latestPic.offsetTop, latestPic.offsetLeft, container);
-        break;
-      case 'ArrowRight':
-        latestPic.style.left = latestPic.offsetLeft + 20 + 'px';
-        updateImagePosition(latestPic, latestPic.offsetTop, latestPic.offsetLeft, container);
-        break;
-      case 'ArrowDown':
-        latestPic.style.top = latestPic.offsetTop + 20 + 'px';
-        updateImagePosition(latestPic, latestPic.offsetTop, latestPic.offsetLeft, container);
-        break;
-      case 'ArrowLeft':
-        latestPic.style.left = latestPic.offsetLeft - 20 + 'px';
-        updateImagePosition(latestPic, latestPic.offsetTop, latestPic.offsetLeft, container);
-        break;
-    }
-  });
+  // latestPic.addEventListener('keydown', function(event) {
+  //   switch (event.key) {
+  //     case 'ArrowUp':
+  //       latestPic.style.top = latestPic.offsetTop - 20 + 'px';
+  //       updateImagePosition(latestPic, latestPic.offsetTop, latestPic.offsetLeft, container);
+  //       break;
+  //     case 'ArrowRight':
+  //       latestPic.style.left = latestPic.offsetLeft + 20 + 'px';
+  //       updateImagePosition(latestPic, latestPic.offsetTop, latestPic.offsetLeft, container);
+  //       break;
+  //     case 'ArrowDown':
+  //       latestPic.style.top = latestPic.offsetTop + 20 + 'px';
+  //       updateImagePosition(latestPic, latestPic.offsetTop, latestPic.offsetLeft, container);
+  //       break;
+  //     case 'ArrowLeft':
+  //       latestPic.style.left = latestPic.offsetLeft - 20 + 'px';
+  //       updateImagePosition(latestPic, latestPic.offsetTop, latestPic.offsetLeft, container);
+  //       break;
+  //   }
+  // });
 
   if (typeof callback === 'function') callback();
 };
