@@ -3,12 +3,9 @@ import { updateImagePosition } from './update-img-pos.mjs';
 let latestPic;
 const allPics = [];
 
-const addImage = (left, top, container, callback) => {
+const addImage = (img, left, top, container, callback) => {
   const figurePic = document.createElement("img");
-  figurePic.src = "./dog.jpg";
-  figurePic.style.position = "absolute";
-  figurePic.width = 100;
-  figurePic.height = 100;
+  figurePic.src = URL.createObjectURL(img);
   container.appendChild(figurePic);
 
   allPics.push(figurePic);

@@ -7,7 +7,8 @@ import { moveImage } from "./modules/move-img.mjs";
 //Global Variables
 
 const mainFrame = document.getElementById("main-frame");
-const plusBtn = document.querySelector("button");
+const label = document.querySelector('label[for="file-upload"]');
+const fileUploadInput = document.getElementById("file-upload");
 const numColumns = 10;
 const numRows = 5;
 let isAddingImage = false;
@@ -15,13 +16,7 @@ let topOnStop, leftOnStop;
 
 //Click and Arrow Key Events
 
-plusBtn.addEventListener("click", () => {
-  plusBtn.blur();
-  if (!isAddingImage) {
-    isAddingImage = true;
-    onBtnClick();
-  }
-});
+fileUploadInput.addEventListener("change", handleFileSelection);
 
 document.addEventListener("keydown", (event) => {
     const updatedPosition = moveImage(event);
@@ -47,9 +42,21 @@ document.addEventListener("click", (e) => {
     if (clickTarget.tagName === "IMG") clickTarget.focus();   
 })
 
-// onClick Functions
+// Image Addition Functions
 
-function onBtnClick() {
+function handleFileSelection() {
+    const uploadedImg = fileUploadInput.files[0];
+    if (uploadedImg) {
+      fileUploadInput.blur();
+      if (!isAddingImage) {
+              isAddingImage = true;
+              placeImg(uploadedImg);
+            }
+      fileUploadInput.value = "";
+    }
+  }
+
+function placeImg(img) {
     manageGrid(numColumns, numRows);
   
     const { imgLeft, imgTop } = getRandomPosition(
@@ -59,7 +66,7 @@ function onBtnClick() {
       mainFrame
     );
   
-    addImage(imgLeft, imgTop, mainFrame, () => {
+    addImage(img, imgLeft, imgTop, mainFrame, () => {
       isAddingImage = false;
     });
   }
