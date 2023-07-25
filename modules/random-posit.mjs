@@ -1,26 +1,21 @@
-let imgLeft, imgTop;
+function getRandomPosition(availableCells, numColumns, numRows, container) {
+  const cellWidth = container.clientWidth / numColumns;
+  const cellHeight = container.clientHeight / numRows;
 
-const getRandomPosition = (
-  availableCells,
-  occupiedCells,
-  numColumns,
-  numRows,
-  container
-) => {
-  const randomIndex =
-    availableCells[Math.floor(Math.random() * availableCells.length)];
-  occupiedCells[randomIndex] = true;
+  const randomIndex = Math.floor(Math.random() * availableCells.length);
+  const occupiedIndex = availableCells[randomIndex];
 
-  const row = Math.floor(randomIndex / numColumns);
-  const col = randomIndex % numColumns;
+  const row = Math.floor(occupiedIndex / numColumns);
+  const col = occupiedIndex % numColumns;
 
-  const cellWidth = (container.clientWidth - (numColumns - 1) * 3) / numColumns;
-  const cellHeight = (container.clientHeight - (numRows - 1) * 3) / numRows;
-  const imgLeft = col * (cellWidth + 3);
-  const imgTop = row * (cellHeight + 3);
+  const imgLeft = Math.floor(col * cellWidth);
+  const imgTop = Math.floor(row * cellHeight);
+
+  // Remove the occupied index from availableCells
+  availableCells.splice(randomIndex, 1);
 
   return { imgLeft, imgTop };
-};
+}
 
-export { getRandomPosition, imgLeft, imgTop };
+export { getRandomPosition };
 
