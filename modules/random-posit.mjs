@@ -19,3 +19,8 @@ function getRandomPosition(availableCells, numColumns, numRows, container) {
 
 export { getRandomPosition };
 
+
+
+
+
+
