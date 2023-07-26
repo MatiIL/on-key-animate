@@ -1,4 +1,4 @@
-import { availableCells } from "./manage-grid.mjs";
+import { availableCells } from "./setup-grid.mjs";
 
 const mainFrame = document.getElementById("main-frame");
 
