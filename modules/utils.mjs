@@ -5,5 +5,23 @@ const shuffleArray = (array) => {
     }
   }
 
-export { shuffleArray }
+const cellDimensionsCalc = (container, columns, rows) => {
+  const cellWidth = container.clientWidth / columns;
+  const cellHeight = container.clientHeight / rows;
+  return { cellWidth, cellHeight }
+}
+
+const imgPositionCalc = (idx, columns) => {
+  const row = Math.floor(idx / columns);
+  const col = idx % columns;
+  return { row, col }
+}
+
+const imgTopLeftCalc = (col, row, cellWidth, cellHeight) => {
+  const imgLeft = Math.floor(col * cellWidth);
+  const imgTop = Math.floor(row * cellHeight);
+  return { imgLeft, imgTop }
+}
+
+export { shuffleArray, cellDimensionsCalc, imgPositionCalc, imgTopLeftCalc }
   

@@ -1,6 +1,5 @@
 const moveImage = (event) => {
   const focusedImg = document.activeElement;
-
   if (event !== undefined) {
     switch (event.key) {
       case "ArrowUp":

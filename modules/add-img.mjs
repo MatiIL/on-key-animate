@@ -2,6 +2,7 @@ let latestPic;
 const allPics = [];
 
 const addImage = (img, left, top, container, index) => {
+
   const figurePic = document.createElement("img");
   figurePic.setAttribute("data-random-index", index);
   figurePic.src = URL.createObjectURL(img);
@@ -12,6 +13,7 @@ const addImage = (img, left, top, container, index) => {
   latestPic.style.left = `${left}px`;
   latestPic.style.top = `${top}px`;
   latestPic.focus();
+  
 };
 
 export { addImage };

@@ -1,15 +1,18 @@
+import { cellDimensionsCalc, imgPositionCalc, imgTopLeftCalc } from "./utils.mjs";
+
 const getRandomPosition = (availableCells, numColumns, numRows, container) => {
-  const cellWidth = container.clientWidth / numColumns;
-  const cellHeight = container.clientHeight / numRows;
+
+  const cellDimensions = cellDimensionsCalc(container, numColumns, numRows);
+  const { cellWidth, cellHeight } = cellDimensions;
 
   const randomIndex = Math.floor(Math.random() * availableCells.length);
   const occupiedIndex = availableCells[randomIndex];
 
-  const row = Math.floor(occupiedIndex / numColumns);
-  const col = occupiedIndex % numColumns;
+  const imgRowAndCol = imgPositionCalc(occupiedIndex, numColumns);
+  const { row, col } = imgRowAndCol;
 
-  const imgLeft = Math.floor(col * cellWidth);
-  const imgTop = Math.floor(row * cellHeight);
+  const imgTopAndLeft = imgTopLeftCalc(col, row, cellWidth, cellHeight);
+  const { imgLeft, imgTop } = imgTopAndLeft;
 
   availableCells.splice(randomIndex, 1);
 

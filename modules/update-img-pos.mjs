@@ -1,48 +1,27 @@
-import { availableCells } from "./setup-grid.mjs";
+import { cellDimensionsCalc } from "./utils.mjs";
 
-const updateImagePosition = (focusedImg, numColumns, numRows, container, top, left) => {
-  const cellWidth = container.clientWidth / numColumns;
-  const cellHeight = container.clientHeight / numRows;
+const updateImagePosition = (availableCells, focusedImg, numColumns, numRows, container, top, left) => {
 
-  let randomIndex = parseInt(focusedImg.getAttribute("data-random-index"));
+  const cellDimensions = cellDimensionsCalc(container, numColumns, numRows);
+  const { cellWidth, cellHeight } = cellDimensions;
+  let prevIndex = parseInt(focusedImg.getAttribute("data-random-index"));
 
-  // If the randomIndex attribute is not a valid number or is out of bounds, assign a new valid random index to the image
-  if (isNaN(randomIndex) || randomIndex < 0 || randomIndex >= numColumns * numRows) {
-    randomIndex = availableCells[Math.floor(Math.random() * availableCells.length)];
-    focusedImg.setAttribute("data-random-index", randomIndex);
+  if (isNaN(prevIndex) || prevIndex < 0 || prevIndex >= numColumns * numRows) {
+    prevIndex = availableCells[Math.floor(Math.random() * availableCells.length)];
+    focusedImg.setAttribute("data-random-index", prevIndex);
   }
- 
-  const row = Math.floor(randomIndex / numColumns);
-  const col = randomIndex % numColumns;
 
-  const imgNewLeft = Math.floor(col * cellWidth);
-  const imgNewTop = Math.floor(row * cellHeight);
-
-  // Check if the new index is valid and not already occupied
   const newIndex = Math.floor((top / cellHeight)) * numColumns + Math.floor((left / cellWidth));
-  if (newIndex >= 0 && newIndex < numColumns * numRows && availableCells.includes(newIndex)) {
-    // Mark the old occupied cell as available again in availableCells
-    availableCells.push(randomIndex);
 
-    // Mark the new occupied cell as unavailable in availableCells
-    const newIndexToRemove = availableCells.indexOf(newIndex);
-    if (newIndexToRemove !== -1) {
-      availableCells.splice(newIndexToRemove, 1);
-    }
+  if (newIndex >= 0 && newIndex < numColumns * numRows && !availableCells.includes(newIndex)) {
+    focusedImg.setAttribute("data-random-index", newIndex);
+    return { prevIndex, newIndex };
   } else {
-    console.error("Invalid position values for the image:", focusedImg, top, left);
-    // Handle the invalid position (optional)
-    // You can reset the position of the image or take appropriate action here
-    // Assign a new valid random index to the image
-    randomIndex = availableCells[Math.floor(Math.random() * availableCells.length)];
-    focusedImg.setAttribute("data-random-index", randomIndex);
-    return { imgNewLeft, imgNewTop, newIndex: randomIndex }; // Return the new index to updateGrid
+    const newRandomIdx = availableCells[Math.floor(Math.random() * availableCells.length)];
+    focusedImg.setAttribute("data-random-index", newRandomIdx);
+    return { prevIndex, newIndex: newRandomIdx }; 
   }
-
-  // Update the random index attribute of the focused image with the new index
-  focusedImg.setAttribute("data-random-index", newIndex);
-
-  return { imgNewLeft, imgNewTop, newIndex };
+  
 };
 
 export { updateImagePosition };

@@ -1,9 +1,8 @@
 import { addImage } from "./modules/add-img.mjs";
-import { setupGrid, availableCells } from "./modules/setup-grid.mjs";
+import { setupGrid } from "./modules/setup-grid.mjs";
 import { getRandomPosition } from "./modules/random-posit.mjs";
 import { moveImage } from "./modules/move-img.mjs";
 import { updateImagePosition } from "./modules/update-img-pos.mjs";
-import { updateGrid } from "./modules/update-grid.mjs";
 import { shuffleArray } from "./modules/utils.mjs";
 
 //Global Variables
@@ -12,10 +11,9 @@ const mainFrame = document.getElementById("main-frame");
 const fileUploadInput = document.getElementById("file-upload");
 const numColumns = 10;
 const numRows = 5;
+const { availableCells } = setupGrid(numColumns, numRows);
 let isAddingImage = false;
 let topOnStop, leftOnStop;
-
-setupGrid(numColumns, numRows);
 
 // Event Listeners
 
@@ -33,7 +31,9 @@ document.addEventListener("keydown", (event) => {
 });
 
 document.addEventListener("keyup", () => {
-  const newPositionValues = updateImagePosition(
+  const newPositionValues = 
+  updateImagePosition(
+    availableCells,
     document.activeElement,
     numColumns,
     numRows,
@@ -42,9 +42,9 @@ document.addEventListener("keyup", () => {
     leftOnStop
   );
   if (newPositionValues) {
-    const { imgNewLeft, imgNewTop, newIndex } = newPositionValues;
+    const { prevIndex, newIndex } = newPositionValues;
     if (!isNaN(newIndex)) {
-      updateGrid(imgNewLeft, imgNewTop, numColumns, numRows, newIndex);
+      setupGrid(numColumns, numRows, prevIndex, newIndex);
     }
   }
 });
@@ -72,6 +72,7 @@ function handleFileUpload() {
       numRows,
       mainFrame
     );
+    setupGrid(numColumns, numRows, )
     shuffleArray(availableCells);
     addImage(img, imgLeft, imgTop, mainFrame, randomIndex); 
       isAddingImage = false;
