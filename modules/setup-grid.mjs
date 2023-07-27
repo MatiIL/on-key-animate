@@ -2,12 +2,13 @@ let occupiedCells;
 let availableCells = [];
 
 const setupGrid = (columns, rows, prevIdx, newIdx) => {
-  if (!availableCells || !occupiedCells) {
-    const numCells = columns * rows;
-    occupiedCells = Array(numCells).fill(false);
+  const numCells = columns * rows;
+  if (!availableCells) {
     availableCells = Array.from(Array(numCells).keys());
   }
-
+  if (!occupiedCells) {
+    occupiedCells = Array(numCells).fill(false);
+  }
   if (prevIdx !== undefined && newIdx !== undefined) {
     availableCells.push(prevIdx);
     occupiedCells[prevIdx] = false;
@@ -17,7 +18,6 @@ const setupGrid = (columns, rows, prevIdx, newIdx) => {
       occupiedCells[newIndexToRemove] = true;
     }
   }
-
   return { occupiedCells, availableCells };
 };
 

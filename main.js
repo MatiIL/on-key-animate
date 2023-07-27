@@ -15,12 +15,18 @@ const { availableCells } = setupGrid(numColumns, numRows);
 let isAddingImage = false;
 let topOnStop, leftOnStop;
 
+//Setup Grid for Images Positioning
+
+setupGrid(numColumns, numRows);
+
 // Event Listeners
 
 document.addEventListener("click", (e) => {
   const clickTarget = e.target;
   if (clickTarget.tagName === "IMG") clickTarget.focus();
 });
+
+fileUploadInput.addEventListener("change", handleFileUpload);
 
 document.addEventListener("keydown", (event) => {
   const updatedPosition = moveImage(event);
@@ -49,8 +55,6 @@ document.addEventListener("keyup", () => {
   }
 });
 
-fileUploadInput.addEventListener("change", handleFileUpload);
-
 // Image Upload and Positioning Functions
 
 function handleFileUpload() {
@@ -72,7 +76,6 @@ function handleFileUpload() {
       numRows,
       mainFrame
     );
-    setupGrid(numColumns, numRows, )
     shuffleArray(availableCells);
     addImage(img, imgLeft, imgTop, mainFrame, randomIndex); 
       isAddingImage = false;
