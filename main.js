@@ -16,7 +16,6 @@ let isAddingImage = false;
 let topOnStop, leftOnStop;
 
 //Setup Grid for Images Positioning
-
 setupGrid(numColumns, numRows);
 
 // Event Listeners
