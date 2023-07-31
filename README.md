@@ -1,5 +1,5 @@
 # on-key-animate
-Home assignment for confidential startup
+***Home assignment for confidential startup***
 Directions:
 Write a web page (HTML + JS) that allows to present figures with a fixed size (even if the uploaded picture is bigger), and to move them using the keyboard.
 The page would have a '+' button on the side, which on click, allows to select some image file from the PC.
